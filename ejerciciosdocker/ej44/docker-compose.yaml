@@ -1,0 +1,27 @@
+services:
+  balanceador:
+    image: grindsa/pen:latest
+    networks: 
+      red:
+        ipv4_address: 192.168.1.79
+    depends_on:
+      - web1
+      - web2
+    command: "-r -f 80 web1:80 web2:80"
+  web1:
+    build: ./web1
+    networks: 
+      red:
+        ipv4_address: 192.168.1.80
+  web2:
+    build: ./web2
+    networks: 
+      red:
+        ipv4_address: 192.168.1.81
+
+networks:
+  red:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.1.0/24

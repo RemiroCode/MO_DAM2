@@ -1,0 +1,35 @@
+services:
+  db:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password_segura
+      MYSQL_DATABASE: wordpress_db
+      MYSQL_USER: wp_user
+      MYSQL_PASSWORD: wp_password
+    volumes:
+      - mariadb_datos:/var/lib/mysql
+    networks:
+      - red_wp
+
+  web:
+    image: wordpress
+    depends_on:
+      - db
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wp_user
+      WORDPRESS_DB_PASSWORD: wp_password
+      WORDPRESS_DB_NAME: wordpress_db
+    volumes:
+      - wp_datos:/var/www/html
+    networks:
+      - red_wp
+
+volumes:
+  mariadb_datos:
+  wp_datos:
+
+networks:
+  red_wp:

@@ -1,0 +1,5 @@
+docker build -t suma-interactiva .
+docker run -it --name mi_suma suma-interactiva
+
+docker build -t suma-env .
+docker run -e NUM1=15 -e NUM2=25 suma-env

@@ -1,0 +1,3 @@
+docker run -d --name ejer34 --network red_examen --dns 1.1.1.1 nginx
+
+docker inspect ejer34  

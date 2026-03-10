@@ -1,0 +1,10 @@
+docker build -t ejer_38_a .
+docker build -t ejer_38_b .
+docker build -t ejer_38_c .
+
+docker save ejer_38_c  > ejer_38_c.tar
+docker load -i ejer_38_c.tar
+
+docker login
+docker tag ejer_38_c remirolaguna23/ejer_38_c:v1
+docker push remirolaguna23/ejer_38_c:v1

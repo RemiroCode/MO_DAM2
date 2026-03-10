@@ -1,0 +1,7 @@
+docker build -t imagen_35 .
+docker build -t imagen_35_1 .
+docker build -t imagen_35_2 .
+
+docker history imagen_35
+docker history imagen_35_1
+docker history imagen_35_2

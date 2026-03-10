@@ -1,0 +1,28 @@
+docker network create -d bridge red_wp
+
+docker run -d --name base_datos --network red_wp -e MARIADB_ROOT_PASSWORD=mi_password mariadb
+
+docker run -d --name servidor_web --network red_wp -p 8080:80 -e WORDPRESS_DB_HOST=base_datos -e WORDPRESS_DB_PASSWORD=mi_password wordpress
+
+services:
+  base_datos:
+    image: mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: mi_password
+    networks:
+      - red_wp
+
+  servidor_web:
+    image: wordpress
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: base_datos
+      WORDPRESS_DB_PASSWORD: mi_password
+    networks:
+      - red_wp
+    depends_on:
+      - base_datos
+
+networks:
+  red_wp:

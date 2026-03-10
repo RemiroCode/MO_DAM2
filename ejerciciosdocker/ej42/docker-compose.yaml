@@ -1,0 +1,43 @@
+services:
+
+  quique:
+    container_name: c1
+    image: ddeccn/nginx_ip:v1
+    ports: 
+      - "9091:80"
+    networks: 
+      - red42
+    volumes:
+      - volumen_quique:/usr/share/nginx/html
+    restart: unless-stopped 
+  dockerfile:
+    container_name: c2
+    build: ../ej38
+    networks: 
+     - red42
+    depends_on: 
+      - quique
+    restart: unless-stopped 
+  tercer:
+    container_name: c3
+    image: ddeccn/nginx_ip:v1
+    ports: 
+      - "9093:80"
+    networks:
+      - red3
+    depends_on: 
+      - quique
+      - dockerfile
+    restart: unless-stopped 
+networks:
+  red42:
+    driver: bridge
+  red3:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.10.0/24
+          gateway: 192.168.10.254
+          ip_range: 192.168.10.64/26
+volumes:
+  volumen_quique:

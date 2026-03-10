@@ -1,0 +1,14 @@
+services:
+  dockerfile:
+    build: .
+    ports: 
+      - "80"
+  dockerfile2:
+    build: .
+    ports: 
+      - "80"
+  dockerfile3:
+    build: .
+    ports: 
+      - "80"
+

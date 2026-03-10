@@ -1,0 +1,18 @@
+services:
+  redis:
+    image: redis
+    volumes:
+      - datos_redis:/data
+  web:
+    image: nginx
+    ports:
+      - "8080:80"
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      - redis
+    volumes:
+      - ./sitio_web:/usr/share/nginx/html
+volumes:
+  datos_redis:

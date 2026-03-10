@@ -1,0 +1,5 @@
+FROM eclipse-temurin:17-alpine
+WORKDIR /app
+COPY SumaInteractiva.java .
+RUN javac SumaInteractiva.java
+CMD ["java", "SumaInteractiva"]
